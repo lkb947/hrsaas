@@ -1,3 +1,18 @@
+# 运行操作
+# clone the project
+git clone https://github.com/lkb947/hrsaas.git
+
+# enter the project directory
+cd hrsaas
+
+# install dependency
+npm install
+
+# develop
+npm run dev
+
+
+# 本项目基于element的框架完成，具体可看如下补充
 # vue-admin-template
 
 English | [简体中文](./README-zh.md)
