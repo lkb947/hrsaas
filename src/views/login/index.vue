@@ -1,10 +1,17 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
-        <h3 class="title">
-          <img src="@/assets/common/login-logo.png" alt="">
+        <h3 class="title biaoti">
+          人力资源管理系统
+          <!-- <img src="@/assets/common/login-logo.png" alt=""> -->
         </h3>
       </div>
 
@@ -46,14 +53,23 @@
         />
         <!-- enter是按键的修饰符  native也是修饰符 -->
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon
+            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+          />
         </span>
       </el-form-item>
 
-      <el-button class="loginBtn" :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button
+        class="loginBtn"
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin"
+        >登录</el-button
+      >
 
       <div class="tips">
-        <span style="margin-right:20px;">账号: 13800000002</span>
+        <span style="margin-right: 20px">账号: 13800000002</span>
         <span> 密码: 123456</span>
       </div>
     </el-form>
@@ -61,10 +77,10 @@
 </template>
 
 <script>
-import { validMobile } from '@/utils/validate'
-import { mapActions } from 'vuex'
+import { validMobile } from "@/utils/validate";
+import { mapActions } from "vuex";
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     const validateMobile = (rule, value, callback) => {
       // 校验成功 callback()
@@ -74,81 +90,91 @@ export default {
       // } else {
       //   callback()
       // }
-      validMobile(value) ? callback() : callback(new Error('手机号格式不正确'))
-    }
+      validMobile(value) ? callback() : callback(new Error("手机号格式不正确"));
+    };
     return {
       loginForm: {
-        mobile: '13800000002',
-        password: '123456'
+        mobile: "13800000002",
+        password: "123456",
       },
       loginRules: {
         // trigger 校验的触发方式 blur/change
         // 自定义函数
-        mobile: [{ required: true, trigger: 'blur', message: '手机号不能为空' }, {
-          validator: validateMobile, trigger: 'blur'
-        }],
-        password: [{ required: true, trigger: 'blur', message: '密码不能为空' }, {
-          trigger: 'blur', min: 6, max: 16, message: '密码长度为6-16位之间'
-        }]
+        mobile: [
+          { required: true, trigger: "blur", message: "手机号不能为空" },
+          {
+            validator: validateMobile,
+            trigger: "blur",
+          },
+        ],
+        password: [
+          { required: true, trigger: "blur", message: "密码不能为空" },
+          {
+            trigger: "blur",
+            min: 6,
+            max: 16,
+            message: "密码长度为6-16位之间",
+          },
+        ],
       },
       loading: false,
-      passwordType: 'password',
-      redirect: undefined
-    }
+      passwordType: "password",
+      redirect: undefined,
+    };
   },
   watch: {
     $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
-    ...mapActions(['user/login']), // 引入方法
+    ...mapActions(["user/login"]), // 引入方法
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
     handleLogin() {
       // 表单的手动校验
-      this.$refs.loginForm.validate(async isOK => {
+      this.$refs.loginForm.validate(async (isOK) => {
         if (isOK) {
           try {
-            this.loading = true
+            this.loading = true;
             // 只有校验通过了 我们才去调用action
-            await this['user/login'](this.loginForm)
+            await this["user/login"](this.loginForm);
             // 应该登录成功之后
             // async标记的函数实际上一个promise对象
             // await下面的代码 都是成功执行的代码
-            this.$router.push('/')
+            this.$router.push("/");
           } catch (error) {
-            console.log(error)
+            console.log(error);
           } finally {
             //  不论执行try 还是catch  都去关闭转圈
-            this.loading = false
+            this.loading = false;
           }
         }
-      })
+      });
       // ref 可以获取一个元素的dom对象
       // ref作用到组件的上的时候 可以获取该组件的实例  this
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray: #68b0fe;  // 将输入框颜色改成蓝色
+$bg: #283443;
+$light_gray: #68b0fe; // 将输入框颜色改成蓝色
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -159,8 +185,8 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
-   background-image: url('~@/assets/common/login.jpg');
-   background-position: center;
+  background-image: url("~@/assets/common/login.jpg");
+  background-position: center;
   .el-input {
     display: inline-block;
     height: 47px;
@@ -169,6 +195,7 @@ $cursor: #fff;
     input {
       background: transparent;
       border: 0px;
+      appearance: none;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
@@ -189,22 +216,22 @@ $cursor: #fff;
     border-radius: 5px;
     color: #454545;
   }
- .el-form-item__error {
-    color: #fff
+  .el-form-item__error {
+    color: #fff;
   }
   .loginBtn {
-  background: #407ffe;
-  height: 64px;
-  line-height: 32px;
-  font-size: 24px;
-}
+    background: #407ffe;
+    height: 64px;
+    line-height: 32px;
+    font-size: 24px;
+  }
 }
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;
@@ -245,14 +272,13 @@ $light_gray:#eee;
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size: 30px;
       color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
     }
   }
-
   .show-pwd {
     position: absolute;
     right: 10px;

@@ -1,22 +1,22 @@
-import request from '@/utils/request'
+import request from "@/utils/request";
 
 /** *
  *  获取员工简单列表
  * **/
 export function getEmployeeSimple() {
   return request({
-    url: '/sys/user/simple'
-  })
+    url: "/sys/user/simple",
+  });
 }
-/** ***
+/** ***x
  * 获取员工综合列表
  *
  * ****/
 export function getEmployeeList(params) {
   return request({
-    url: '/sys/user',
-    params
-  })
+    url: "/sys/user",
+    params,
+  });
 }
 /**
  * 删除员工的接口
@@ -24,15 +24,15 @@ export function getEmployeeList(params) {
 export function delEmployee(id) {
   return request({
     url: `/sys/user/${id}`,
-    method: 'delete'
-  })
+    method: "delete",
+  });
 }
 export function addEmployee(data) {
   return request({
-    url: '/sys/user',
-    method: 'post',
-    data
-  })
+    url: "/sys/user",
+    method: "post",
+    data,
+  });
 }
 /** **
  *
@@ -40,10 +40,10 @@ export function addEmployee(data) {
  * ****/
 export function importEmployee(data) {
   return request({
-    url: '/sys/user/batch',
-    method: 'post',
-    data
-  })
+    url: "/sys/user/batch",
+    method: "post",
+    data,
+  });
 }
 
 /** *
@@ -52,9 +52,9 @@ export function importEmployee(data) {
 export function saveUserDetailById(data) {
   return request({
     url: `/sys/user/${data.id}`,
-    method: 'put',
-    data
-  })
+    method: "put",
+    data,
+  });
 }
 
 /** *
@@ -62,8 +62,8 @@ export function saveUserDetailById(data) {
  * **/
 export function getPersonalDetail(id) {
   return request({
-    url: `/employees/${id}/personalInfo`
-  })
+    url: `/employees/${id}/personalInfo`,
+  });
 }
 
 /** *
@@ -72,9 +72,9 @@ export function getPersonalDetail(id) {
 export function updatePersonal(data) {
   return request({
     url: `/employees/${data.userId}/personalInfo`,
-    method: 'put',
-    data
-  })
+    method: "put",
+    data,
+  });
 }
 
 /** **
@@ -83,8 +83,8 @@ export function updatePersonal(data) {
  * ****/
 export function getJobDetail(id) {
   return request({
-    url: `/employees/${id}/jobs`
-  })
+    url: `/employees/${id}/jobs`,
+  });
 }
 
 /**
@@ -93,9 +93,9 @@ export function getJobDetail(id) {
 export function updateJob(data) {
   return request({
     url: `/employees/${data.userId}/jobs`,
-    method: 'put',
-    data
-  })
+    method: "put",
+    data,
+  });
 }
 
 /** **
@@ -107,8 +107,8 @@ export function updateJob(data) {
  * ***/
 export function assignRoles(data) {
   return request({
-    url: '/sys/user/assignRoles',
+    url: "/sys/user/assignRoles",
     data,
-    method: 'put'
-  })
+    method: "put",
+  });
 }
